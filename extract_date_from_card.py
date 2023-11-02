@@ -23,4 +23,4 @@ def find_date(image_path):
  # Displaying the extracted text 
  print(x)
 
-find_date("368080144_290519130490318_2642191076935064121_n.jpg")
+find_date(card_jpg)
