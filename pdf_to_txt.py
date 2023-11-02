@@ -4,6 +4,7 @@ import re
 import json
 import requests
 from bs4 import BeautifulSoup
+import calendar
 
 
 def extract_from_pdf(program,filename):
@@ -24,8 +25,7 @@ def extract_from_pdf(program,filename):
     text= text + page.extract_text()
 
  t=text.strip()
- with open('october_2023.txt', 'w', encoding='utf-8') as f:
-    f.write(text)
+
  t=t.split('ΠΡΟΣΦΕΡΟΜΕΝΟ')
  finalt=t[1:len(t)]
 
@@ -53,8 +53,7 @@ def extract_from_pdf(program,filename):
  sd=0
  cntd=0
 
- with open('test.txt', 'w', encoding='utf-8') as f:
-  for i in t[1:]:
+ for i in t[1:]:
     week=i.split('ΔΕΙΠΝΟ')
     lunch=week[0]
     dinner=week[1]
@@ -659,7 +658,13 @@ def extract_from_pdf(program,filename):
     for x,l, y, z,d,e,f,g,h,i,j,k in zip(dates,breakfast,firstDishes,mainDishes1,mainDishes2,sideDishes,lunchDesserts,DfirstDishes,DmainDishes1,DmainDishes2,DsideDishes,dinnerDesserts) ]
  filen = json.dumps(d, sort_keys=False, indent=4,ensure_ascii=False)
 
- with open(filename+'.json', 'w', encoding='utf-8') as f:
+ month=re.split('/',dates[0])[1]
+ month=re.split('/',month)[0]
+ month_name=calendar.month_name[int(month)]
+ fn=re.split('-',filename)[1]
+ fn=month_name+'_'+fn
+
+ with open(fn+'.json', 'w', encoding='utf-8') as f:
     f.write(filen)
 
 
